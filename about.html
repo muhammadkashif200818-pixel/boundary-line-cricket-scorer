@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About Boundary Line — CSC102 student cricket project inspired by STUMPS.">
+  <title>About Project | Boundary Line</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">
+    <span class="brand-icon">BL</span>
+    <span>BOUNDARY<span class="brand-accent">LINE</span><small>CRICKET SCORER & HUB</small></span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a href="matches.html">Live Scorer</a>
+    <a class="active" href="about.html">About</a>
+  </nav>
+</header>
+
+<main>
+    <section class="card">
+  <h2>Project Developers</h2>
+  <div class="developers-grid">
+    <div class="dev-card">
+      <img src="Saifullah.jpeg" alt="Saifullah" class="dev-photo">
+      <h3>Saifullah</h3>
+      <p class="dev-sap">SAP ID: 5000020370</p>
+    </div>
+
+    <div class="dev-card">
+      <img src="Muhammad Umar.jpeg" alt="Muhammad Umar" class="dev-photo">
+      <h3>Muhammad Umar</h3>
+      <p class="dev-sap">SAP ID: 5000020660</p>
+    </div>
+
+    <div class="dev-card">
+      <img src="Muhammad Kashif.png" alt="Muhammad Kashif" class="dev-photo">
+      <h3>Muhammad Kashif</h3>
+      <p class="dev-sap">SAP ID: 5000020657</p>
+    </div>
+  </div>
+</section>
+  <section class="section page-top">
+    <div class="section-head">
+      <div>
+        <p class="kicker">CSC102 • APPLICATION OF ICT</p>
+        <h1>About Boundary Line</h1>
+      </div>
+      <p class="section-intro">How we combined modern web development with the workflow of the STUMPS cricket scoring app.</p>
+    </div>
+
+    <div class="format-grid">
+      <article class="format-card">
+        <span class="format-number">01</span>
+        <h3>HTML5 Structure</h3>
+        <p>Built with semantic tags (<code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, and <code>&lt;table&gt;</code>) and accessible ARIA live regions.</p>
+        <span class="format-label">SEMANTIC MARKUP</span>
+      </article>
+      <article class="format-card">
+        <span class="format-number">02</span>
+        <h3>CSS Grid & Flexbox</h3>
+        <p>Responsive dark-stadium theme using CSS variables, fluid grids, and mobile-first navigation that adapts to phones and desktops.</p>
+        <span class="format-label">RESPONSIVE UI</span>
+      </article>
+      <article class="format-card">
+        <span class="format-number">03</span>
+        <h3>JavaScript Scoring Engine</h3>
+        <p>Real-time state management for legal balls, wides, no-balls, striker rotation, run rates, undo history, and <code>localStorage</code> persistence.</p>
+        <span class="format-label">INTERACTIVE LOGIC</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <p class="kicker">APP INSPIRATION</p>
+        <h2>Inspired by STUMPS – The Cricket Scorer</h2>
+      </div>
+      <p class="section-intro">Key cricket scoring concepts implemented in our browser app.</p>
+    </div>
+
+    <div class="about-split">
+      <div class="about-card">
+        <h3>What STUMPS Does</h3>
+        <ul class="check-list">
+          <li><strong>Ball-by-Ball Scoring:</strong> Instant tap buttons for 0, 1, 2, 3, 4, 6, Wides, No-Balls, and Wickets.</li>
+          <li><strong>Automatic Over Roll-Over:</strong> Counts 6 legal deliveries per over while keeping extras extra.</li>
+          <li><strong>Strike Rotation:</strong> Automatically swaps batter strike on odd runs (1, 3) and at the end of every over.</li>
+          <li><strong>Undo Mistake Support:</strong> Reverts the last delivery cleanly if a scorer taps the wrong button.</li>
+        </ul>
+      </div>
+
+      <div class="about-card">
+        <h3>Project Details</h3>
+        <ul class="check-list">
+          <li><strong>Course:</strong> CSC102 — Application of ICT</li>
+          <li><strong>Pages:</strong> 3 Linked Pages (<code>index.html</code>, <code>matches.html</code>, <code>about.html</code>)</li>
+          <li><strong>Storage:</strong> Client-side <code>localStorage</code> (no external server required)</li>
+          <li><strong>Compatibility:</strong> Works offline in any modern web browser</li>
+        </ul>
+        <div style="margin-top: 1.25rem;">
+          <a class="btn btn-primary" href="matches.html">Try the Live Scorer ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a class="brand footer-brand" href="index.html">
+    <span class="brand-icon">BL</span>
+    <span>BOUNDARY<span class="brand-accent">LINE</span><small>CRICKET SCORER & HUB</small></span>
+  </a>
+  <p>Student project • CSC102 Application of ICT</p>
+  <span>© 2026 BOUNDARY LINE</span>
+</footer>
+</body>
+</html>

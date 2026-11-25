@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Boundary Line Live Scorer — STUMPS-style cricket scorecard simulator.">
+  <title>Live Scorer & Matches | Boundary Line</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">
+    <span class="brand-icon">BL</span>
+    <span>BOUNDARY<span class="brand-accent">LINE</span><small>CRICKET SCORER & HUB</small></span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a class="active" href="matches.html">Live Scorer</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<main>
+  <section class="section page-top">
+    <div class="section-head">
+      <div>
+        <p class="kicker"><span class="live-dot"></span> STUMPS-STYLE SCORING ENGINE</p>
+        <h1>Live Match Scorer</h1>
+      </div>
+      <p class="section-intro">Set up two teams, tap runs, wickets, or extras ball-by-ball, and track live run rate and over history.</p>
+    </div>
+
+    <!-- Match Setup Bar -->
+    <div class="setup-bar">
+      <div class="setup-group">
+        <label for="battingTeamInput">Batting Team</label>
+        <input type="text" id="battingTeamInput" value="PAK" maxlength="12">
+      </div>
+      <div class="setup-group">
+        <label for="bowlingTeamInput">Bowling Team</label>
+        <input type="text" id="bowlingTeamInput" value="IND" maxlength="12">
+      </div>
+      <div class="setup-group">
+        <label for="oversLimitInput">Match Overs</label>
+        <select id="oversLimitInput">
+          <option value="5">5 Overs (Tape-Ball)</option>
+          <option value="10">10 Overs (T10)</option>
+          <option value="20" selected>20 Overs (T20)</option>
+          <option value="50">50 Overs (ODI)</option>
+        </select>
+      </div>
+      <div class="setup-group">
+        <label for="targetInput">Target (Optional)</label>
+        <input type="number" id="targetInput" placeholder="e.g. 165" min="1" max="999">
+      </div>
+      <button class="btn btn-secondary" id="applySetupBtn" type="button">Apply Teams</button>
+    </div>
+
+    <!-- Main STUMPS Scorecard -->
+    <div class="scorer-grid">
+      <div class="scorecard-main">
+        <div class="scorecard-header">
+          <div>
+            <span class="tag" id="matchStatusTag">1ST INNINGS • LIVE</span>
+            <h2 id="matchTitleDisplay">PAK vs IND</h2>
+          </div>
+          <div class="crr-box">
+            <span>CRR: <strong id="crrDisplay">0.00</strong></span>
+            <span id="rrrDisplay">RRR: —</span>
+          </div>
+        </div>
+
+        <div class="big-score-row">
+          <div class="big-score">
+            <span id="runsDisplay">0</span>/<span id="wicketsDisplay">0</span>
+          </div>
+          <div class="overs-info">
+            <p>Overs: <strong id="oversDisplay">0.0</strong> / <span id="maxOversDisplay">20</span></p>
+            <p id="equationDisplay">Innings in progress</p>
+          </div>
+        </div>
+
+        <!-- Batters & Bowler Strip -->
+        <div class="players-strip">
+  <div class="player-box active-batter">
+    <label for="strikerInput">STRIKER *</label>
+    <input type="text" id="strikerInput" class="batter-name-input" value="Batter 1" maxlength="18" aria-label="Striker name">
+    <span id="strikerStats">0 (0)</span>
+  </div>
+  <div class="player-box">
+    <label for="nonStrikerInput">NON-STRIKER</label>
+    <input type="text" id="nonStrikerInput" class="batter-name-input" value="Batter 2" maxlength="18" aria-label="Non-striker name">
+    <span id="nonStrikerStats">0 (0)</span>
+  </div>
+  <div class="player-box">
+    <small>EXTRAS</small>
+    <strong id="extrasTotal">0</strong>
+    <span id="extrasBreakdown">WD 0 • NB 0</span>
+  </div>
+  <div class="player-box active-bowler">
+    <label for="bowlerInput">BOWLER</label>
+    <input type="text" id="bowlerInput" class="batter-name-input" value="Bowler 1" maxlength="18" aria-label="Bowler name">
+    <span id="bowlerStats">0.0 Ov • 0/0</span>
+  </div>
+</div>
+</div>
+            <small>STRIKER *</small>
+            <strong id="strikerName">Batter 1</strong>
+            <span id="strikerStats">0 (0)</span>
+          </div>
+          <div class="player-box">
+            <small>NON-STRIKER</small>
+            <strong id="nonStrikerName">Batter 2</strong>
+            <span id="nonStrikerStats">0 (0)</span>
+          </div>
+          <div class="player-box">
+            <small>EXTRAS</small>
+            <strong id="extrasTotal">0</strong>
+            <span id="extrasBreakdown">WD 0 • NB 0</span>
+          </div>
+        </div>
+
+        <!-- Current Over Ball-by-Ball Timeline -->
+        <div class="timeline-box">
+          <div class="timeline-head">
+            <span>THIS OVER</span>
+            <button type="button" class="swap-btn" id="swapStrikeBtn">⇄ Swap Strike</button>
+          </div>
+          <div class="ball-track" id="currentOverTrack">
+            <span class="ball-placeholder">Tap a scoring button below to bowl first ball</span>
+          </div>
+        </div>
+
+        <!-- Keypad Controls -->
+        <div class="keypad">
+          <button class="key-btn" data-runs="0">0<span>Dot</span></button>
+          <button class="key-btn" data-runs="1">1<span>Single</span></button>
+          <button class="key-btn" data-runs="2">2<span>Double</span></button>
+          <button class="key-btn" data-runs="3">3<span>Triple</span></button>
+          <button class="key-btn key-four" data-runs="4">4<span>Boundary</span></button>
+          <button class="key-btn key-six" data-runs="6">6<span>Maximum</span></button>
+          <button class="key-btn key-extra" data-extra="WD">WD<span>Wide +1</span></button>
+          <button class="key-btn key-extra" data-extra="NB">NB<span>No Ball +1</span></button>
+          <button class="key-btn key-wicket" id="wicketBtn">OUT<span>Wicket</span></button>
+          <button class="key-btn key-undo" id="undoBtn">UNDO<span>Last Ball</span></button>
+        </div>
+
+        <div class="scorer-actions">
+          <button class="btn btn-secondary" id="resetMatchBtn" type="button">Reset Match</button>
+        </div>
+      </div>
+
+      <!-- Completed Overs Log -->
+      <aside class="overs-log-panel">
+        <div class="registration-heading">
+          <h3>Over-by-Over Log</h3>
+          <span id="completedOversCount">0 OVERS</span>
+        </div>
+        <p class="registration-intro">Completed overs appear here automatically after every 6 legal deliveries.</p>
+        <ul id="overHistoryList" class="over-history-list">
+          <li class="empty-registration">No completed overs yet.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Upcoming & Tournament Standings Table -->
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <p class="kicker">TOURNAMENT TABLE</p>
+        <h2>Points Table & Net Run Rate</h2>
+      </div>
+      <p class="section-intro">Sample tournament standings inspired by STUMPS automatic NRR tables.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="points-table">
+        <thead>
+          <tr>
+            <th>Pos</th>
+            <th>Team</th>
+            <th>P</th>
+            <th>W</th>
+            <th>L</th>
+            <th>NRR</th>
+            <th>Pts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td><strong>Pakistan (PAK)</strong></td><td>3</td><td>3</td><td>0</td><td class="pos-nrr">+1.420</td><td><strong>6</strong></td></tr>
+          <tr><td>2</td><td><strong>India (IND)</strong></td><td>3</td><td>2</td><td>1</td><td class="pos-nrr">+0.895</td><td><strong>4</strong></td></tr>
+          <tr><td>3</td><td><strong>Australia (AUS)</strong></td><td>3</td><td>1</td><td>2</td><td class="neg-nrr">-0.510</td><td><strong>2</strong></td></tr>
+          <tr><td>4</td><td><strong>England (ENG)</strong></td><td>3</td><td>0</td><td>3</td><td class="neg-nrr">-1.780</td><td><strong>0</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a class="brand footer-brand" href="index.html">
+    <span class="brand-icon">BL</span>
+    <span>BOUNDARY<span class="brand-accent">LINE</span><small>CRICKET SCORER & HUB</small></span>
+  </a>
+  <p>Student project • CSC102 Application of ICT</p>
+  <span>© 2026 BOUNDARY LINE</span>
+</footer>
+</body>
+</html>
